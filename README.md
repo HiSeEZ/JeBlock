@@ -1,4 +1,4 @@
-# JeBlock V0.2.1 Beta
+# JeBlock V0.2.2 Beta
 
 Benchmark build focused on the DNS layer.
 
@@ -31,3 +31,9 @@ This PWA only configures the DNS layer. DNS cannot remove every popup/cosmetic e
 ## Privacy
 
 This PWA has no account and no analytics. The public DNS provider processes DNS queries according to its own privacy policy. These public profiles are for beta testing; a production JeBlock service should use JeBlock-controlled endpoints.
+
+
+## V0.2.2
+- Reworked the on-device protection check for Safari reliability.
+- Added a hard timeout so the Check protection button can never remain stuck.
+- Kept OISD Full as the Maximum profile after the 96% d3ward result.

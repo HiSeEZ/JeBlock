@@ -1,4 +1,4 @@
-const CACHE = 'jeblock-v021';
+const CACHE = 'jeblock-v022';
 const PROFILE_MIME = 'application/x-apple-aspen-config';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './manifest.webmanifest',
