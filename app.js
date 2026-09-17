@@ -2,12 +2,14 @@ const PROFILE_MIME = 'application/x-apple-aspen-config';
 const PROFILE_FILES = {
   maximum: 'jeblock-maximum.mobileconfig',
   compatibility: 'jeblock-compatibility.mobileconfig',
+  proplus: 'jeblock-proplus.mobileconfig',
   unfiltered: 'jeblock-off.mobileconfig'
 };
 
 const $ = (s) => document.querySelector(s);
 const installBtn = $('#installBtn');
 const compatBtn = $('#compatBtn');
+const proPlusBtn = $('#proPlusBtn');
 const offProfileBtn = $('#offProfileBtn');
 const testBtn = $('#testBtn');
 const testResult = $('#testResult');
@@ -34,9 +36,7 @@ async function downloadProfile(profile) {
   const response = await fetch(`./${filename}`, { cache: 'no-store' });
   if (!response.ok) throw new Error(`Could not load ${filename}.`);
   const xml = await response.text();
-  if (!xml.includes('<plist') || !xml.includes('PayloadType')) {
-    throw new Error('Invalid configuration profile.');
-  }
+  if (!xml.includes('<plist') || !xml.includes('com.apple.dnsSettings.managed')) throw new Error('Invalid configuration profile.');
   triggerProfileDownload(xml, filename);
 }
 
@@ -47,7 +47,7 @@ async function prepareButton(button, profile, readyText) {
   try {
     await downloadProfile(profile);
     statusTitle.textContent = readyText;
-    statusText.textContent = 'Open the downloaded profile, install it in Settings, then return here and check protection.';
+    statusText.textContent = 'Install the downloaded profile in Settings, toggle Airplane Mode on/off, then test again.';
   } catch (error) {
     console.error(error);
     alert('JeBlock could not prepare the profile. Reload this page in Safari and try again.');
@@ -57,8 +57,9 @@ async function prepareButton(button, profile, readyText) {
   }
 }
 
-installBtn.addEventListener('click', () => prepareButton(installBtn, 'maximum', 'Profile ready'));
-compatBtn.addEventListener('click', () => prepareButton(compatBtn, 'compatibility', 'Compatibility profile ready'));
+installBtn.addEventListener('click', () => prepareButton(installBtn, 'maximum', 'OISD profile ready'));
+compatBtn.addEventListener('click', () => prepareButton(compatBtn, 'compatibility', 'AdGuard profile ready'));
+proPlusBtn.addEventListener('click', () => prepareButton(proPlusBtn, 'proplus', 'Pro++ profile ready'));
 offProfileBtn.addEventListener('click', () => prepareButton(offProfileBtn, 'unfiltered', 'Unfiltered profile ready'));
 
 const TEST_ENDPOINTS = [
@@ -66,7 +67,8 @@ const TEST_ENDPOINTS = [
   'https://googleads.g.doubleclick.net/pagead/id',
   'https://adservice.google.com/adsid/integrator.js',
   'https://connect.facebook.net/en_US/fbevents.js',
-  'https://analytics.google.com/g/collect'
+  'https://www.google-analytics.com/analytics.js',
+  'https://static.ads-twitter.com/uwt.js'
 ];
 
 async function endpointBlocked(url) {
@@ -79,46 +81,40 @@ async function endpointBlocked(url) {
     return false;
   } catch (_) {
     return true;
-  } finally {
-    clearTimeout(timer);
-  }
+  } finally { clearTimeout(timer); }
 }
 
 async function testProtection() {
   testBtn.disabled = true;
   testBtn.textContent = 'Checking…';
   testResult.className = 'result';
-  testResult.textContent = 'Checking several common ad and tracker endpoints…';
-
+  testResult.textContent = 'Checking common ad and tracker hosts…';
   const results = await Promise.all(TEST_ENDPOINTS.map(endpointBlocked));
   const blocked = results.filter(Boolean).length;
+  const total = results.length;
 
-  if (blocked >= 4) {
+  if (blocked >= 5) {
     testResult.className = 'result good';
-    testResult.textContent = 'Protection is active.';
+    testResult.textContent = `Protection is active (${blocked}/${total} test hosts blocked).`;
     statusDot.className = 'status-dot good';
     statusTitle.textContent = 'Protected';
-    statusText.textContent = 'JeBlock is blocking common ad and tracker endpoints.';
+    statusText.textContent = 'JeBlock is blocking common ad and tracker hosts.';
   } else if (blocked >= 2) {
     testResult.className = 'result warn';
-    testResult.textContent = 'Protection may be active, but the result is mixed. Try Airplane Mode on/off, then test again.';
+    testResult.textContent = `Mixed result (${blocked}/${total} blocked). Toggle Airplane Mode on/off and test again.`;
     statusDot.className = 'status-dot unknown';
     statusTitle.textContent = 'Protection uncertain';
-    statusText.textContent = 'Some ad/tracker endpoints are blocked and some are reachable.';
+    statusText.textContent = 'Some test hosts are blocked and some are reachable.';
   } else {
     testResult.className = 'result bad';
-    testResult.textContent = 'Protection was not detected. Make sure the JeBlock profile is installed and active.';
+    testResult.textContent = `Protection was not detected (${blocked}/${total} blocked). Check the installed DNS profile.`;
     statusDot.className = 'status-dot bad';
     statusTitle.textContent = 'Not protected';
-    statusText.textContent = 'Install the JeBlock profile, then check protection again.';
+    statusText.textContent = 'Install one JeBlock profile, then check again.';
   }
-
   testBtn.disabled = false;
   testBtn.textContent = 'Check protection';
 }
 
 testBtn.addEventListener('click', testProtection);
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(() => {});
-}
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});

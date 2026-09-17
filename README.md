@@ -1,32 +1,33 @@
-# JeBlock V0.2 Beta
+# JeBlock V0.2.1 Beta
 
-JeBlock is a deliberately simple iPhone ad/tracker blocker proof-of-concept.
+Benchmark build focused on the DNS layer.
 
-## V0.2 goal
+## Default profile
 
-One button, one profile, aggressive DNS-level blocking, almost no settings.
+`jeblock-maximum.mobileconfig` uses Control D's public OISD Full DoH endpoint:
+`https://freedns.controld.com/x-oisd`
 
-- Main button: **Protect this iPhone**
-- Default profile: aggressive HaGeZi Ultimate filtering through Control D's public DoH endpoint.
-- Compatibility profile: less aggressive HaGeZi Pro filtering.
-- Unfiltered profile for troubleshooting.
-- Multi-endpoint protection check.
-- No graphs, no customer DNS history, no account, no PWA analytics.
+## Test profiles
+
+- `jeblock-compatibility.mobileconfig` — AdGuard Public DNS (known-good fallback from V0.1 testing).
+- `jeblock-proplus.mobileconfig` — HaGeZi Pro++ through Control D, for comparison only.
+- `jeblock-off.mobileconfig` — unfiltered Control D DNS.
+
+Use only one DNS settings profile at a time. Remove the current JeBlock test profile before switching.
+
+## Test sequence
+
+1. Remove the old JeBlock/JezBlock DNS profile.
+2. Open JeBlock in Safari and install Maximum.
+3. Toggle Airplane Mode on/off once after installation.
+4. Run JeBlock's built-in check.
+5. Run the same external blocker benchmark used before and record the result.
+6. If Maximum is weak, repeat with AdGuard and then Pro++ so we can compare on the same iPhone/network.
 
 ## Important limitation
 
-The V0.2 beta is intended to test how far DNS-only blocking can go. It cannot honestly guarantee 99% blocking or zero pop-ups on every site. DNS cannot safely block ads that share the same hostname as wanted content, and some apps can bypass system DNS.
+This PWA only configures the DNS layer. DNS cannot remove every popup/cosmetic element or same-domain ad. A Safari content-blocker extension is a separate native extension layer and cannot be installed by this PWA.
 
-## Install
+## Privacy
 
-Deploy the files to GitHub Pages, open the site in Safari, tap **Protect this iPhone**, open the downloaded `.mobileconfig`, then install it from Settings.
-
-## Beta resolver notes
-
-The Maximum profile currently points to:
-`https://freedns.controld.com/x-hagezi-ultimate`
-
-The Compatibility profile points to:
-`https://freedns.controld.com/x-hagezi-pro`
-
-These are public third-party endpoints for testing only. A commercial JeBlock release should use JeBlock-controlled infrastructure and its own domain.
+This PWA has no account and no analytics. The public DNS provider processes DNS queries according to its own privacy policy. These public profiles are for beta testing; a production JeBlock service should use JeBlock-controlled endpoints.

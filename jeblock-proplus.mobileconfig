@@ -8,23 +8,23 @@
       <key>DNSSettings</key>
       <dict>
         <key>DNSProtocol</key><string>HTTPS</string>
-        <key>ServerURL</key><string>https://dns.adguard-dns.com/dns-query</string>
+        <key>ServerURL</key><string>https://freedns.controld.com/x-hagezi-proplus</string>
         <key>AllowFailover</key><false/>
       </dict>
-      <key>PayloadDisplayName</key><string>JeBlock Compatibility</string>
-      <key>PayloadIdentifier</key><string>com.jeblock.dns.compatibility</string>
+      <key>PayloadDisplayName</key><string>JeBlock Lab Pro++</string>
+      <key>PayloadIdentifier</key><string>com.jeblock.dns.proplus</string>
       <key>PayloadType</key><string>com.apple.dnsSettings.managed</string>
-      <key>PayloadUUID</key><string>62B7D3E9-F884-479C-8394-35195B2C32A9</string>
+      <key>PayloadUUID</key><string>12E0EDA5-37F5-4907-B3AC-8F3A6912AF5B</string>
       <key>PayloadVersion</key><integer>1</integer>
     </dict>
   </array>
-  <key>PayloadDescription</key><string>JeBlock compatibility profile using AdGuard Public DNS over encrypted DNS.</string>
-  <key>PayloadDisplayName</key><string>JeBlock Compatibility</string>
-  <key>PayloadIdentifier</key><string>com.jeblock.profile.compatibility</string>
+  <key>PayloadDescription</key><string>JeBlock lab profile using HaGeZi Pro++ over encrypted DNS. For benchmark testing only.</string>
+  <key>PayloadDisplayName</key><string>JeBlock Lab Pro++</string>
+  <key>PayloadIdentifier</key><string>com.jeblock.profile.proplus</string>
   <key>PayloadOrganization</key><string>JeBlock</string>
   <key>PayloadRemovalDisallowed</key><false/>
   <key>PayloadType</key><string>Configuration</string>
-  <key>PayloadUUID</key><string>20C3B00F-3410-4367-ADC0-892D9E7D159F</string>
+  <key>PayloadUUID</key><string>5473BD3B-BD62-4003-BAC9-23F3E3DE2B68</string>
   <key>PayloadVersion</key><integer>1</integer>
 </dict>
 </plist>

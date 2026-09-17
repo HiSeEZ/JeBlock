@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict>
-<key>PayloadContent</key><array><dict>
-<key>DNSSettings</key><dict><key>DNSProtocol</key><string>HTTPS</string><key>ServerURL</key><string>https://freedns.controld.com/x-hagezi-ultimate</string><key>AllowFailover</key><false/></dict>
-<key>PayloadDisplayName</key><string>JeBlock Maximum</string>
-<key>PayloadIdentifier</key><string>com.jeblock.dns.maximum</string>
-<key>PayloadType</key><string>com.apple.dnsSettings.managed</string>
-<key>PayloadUUID</key><string>C3BD343C-2A3E-4AE7-9A9B-C5F18542D075</string>
-<key>PayloadVersion</key><integer>1</integer>
-</dict></array>
-<key>PayloadDescription</key><string>JeBlock maximum-blocking beta profile.</string>
-<key>PayloadDisplayName</key><string>JeBlock Maximum</string>
-<key>PayloadIdentifier</key><string>com.jeblock.profile.maximum</string>
-<key>PayloadOrganization</key><string>JeBlock</string>
-<key>PayloadRemovalDisallowed</key><false/>
-<key>PayloadType</key><string>Configuration</string>
-<key>PayloadUUID</key><string>74D7375C-3E75-4878-B676-36006E28D414</string>
-<key>PayloadVersion</key><integer>1</integer>
-</dict></plist>
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>DNSSettings</key>
+      <dict>
+        <key>DNSProtocol</key><string>HTTPS</string>
+        <key>ServerURL</key><string>https://freedns.controld.com/x-oisd</string>
+        <key>AllowFailover</key><false/>
+      </dict>
+      <key>PayloadDisplayName</key><string>JeBlock Maximum</string>
+      <key>PayloadIdentifier</key><string>com.jeblock.dns.maximum</string>
+      <key>PayloadType</key><string>com.apple.dnsSettings.managed</string>
+      <key>PayloadUUID</key><string>0806F851-8025-4475-A26B-60FC8800F540</string>
+      <key>PayloadVersion</key><integer>1</integer>
+    </dict>
+  </array>
+  <key>PayloadDescription</key><string>JeBlock maximum-blocking beta profile using OISD Full over encrypted DNS.</string>
+  <key>PayloadDisplayName</key><string>JeBlock Maximum</string>
+  <key>PayloadIdentifier</key><string>com.jeblock.profile.maximum</string>
+  <key>PayloadOrganization</key><string>JeBlock</string>
+  <key>PayloadRemovalDisallowed</key><false/>
+  <key>PayloadType</key><string>Configuration</string>
+  <key>PayloadUUID</key><string>F6CEC365-B468-430B-BE45-01B96712BF93</string>
+  <key>PayloadVersion</key><integer>1</integer>
+</dict>
+</plist>
