@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>PayloadContent</key><array><dict>
+<key>DNSSettings</key><dict><key>DNSProtocol</key><string>HTTPS</string><key>ServerURL</key><string>https://unfiltered.adguard-dns.com/dns-query</string><key>AllowFailover</key><false/></dict>
+<key>PayloadDisplayName</key><string>JeBlock Unfiltered</string>
+<key>PayloadIdentifier</key><string>com.jeblock.dns.unfiltered</string>
+<key>PayloadType</key><string>com.apple.dnsSettings.managed</string>
+<key>PayloadUUID</key><string>0AC70BFA-8D36-4149-8C77-AC8CF52B0E78</string>
+<key>PayloadVersion</key><integer>1</integer>
+</dict></array>
+<key>PayloadDescription</key><string>Encrypted DNS without JeBlock filtering.</string>
+<key>PayloadDisplayName</key><string>JeBlock Unfiltered</string>
+<key>PayloadIdentifier</key><string>com.jeblock.profile.unfiltered</string>
+<key>PayloadOrganization</key><string>JeBlock</string>
+<key>PayloadRemovalDisallowed</key><false/>
+<key>PayloadType</key><string>Configuration</string>
+<key>PayloadUUID</key><string>246E96DE-A0CB-4B7C-AAB5-A59022D5B01D</string>
+<key>PayloadVersion</key><integer>1</integer>
+</dict></plist>

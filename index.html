@@ -6,12 +6,12 @@
   <meta name="theme-color" content="#0b0c0f">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="JezBlock">
-  <meta name="description" content="System-wide encrypted DNS ad and tracker blocking for iPhone.">
+  <meta name="apple-mobile-web-app-title" content="JeBlock">
+  <meta name="description" content="Simple system-wide DNS ad and tracker blocking for iPhone.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="styles.css">
-  <title>JezBlock</title>
+  <title>JeBlock</title>
 </head>
 <body>
   <main class="shell">
@@ -19,102 +19,53 @@
       <div class="brand">
         <div class="shield" aria-hidden="true">J</div>
         <div>
-          <h1>JezBlock</h1>
-          <p>System-wide DNS protection</p>
+          <h1>JeBlock</h1>
+          <p>No ads. No nonsense.</p>
         </div>
       </div>
-      <span class="badge">V0.1.1</span>
+      <span class="badge">V0.2 BETA</span>
     </header>
 
     <section class="hero card">
       <div class="status-row">
         <div>
           <span class="eyebrow">PROTECTION</span>
-          <h2 id="statusTitle">Ready to install</h2>
+          <h2 id="statusTitle">Ready to protect</h2>
         </div>
         <div id="statusDot" class="status-dot unknown" aria-hidden="true"></div>
       </div>
-      <p id="statusText" class="muted">
-        Install one encrypted DNS profile to block many ads and trackers across Safari and apps.
-      </p>
-      <button id="testBtn" class="secondary full">Test current protection</button>
+      <p id="statusText" class="muted">One profile. Maximum DNS-level ad and tracker blocking.</p>
+      <button id="installBtn" class="primary full">Protect this iPhone</button>
+      <button id="testBtn" class="secondary full">Check protection</button>
       <div id="testResult" class="result hidden" role="status"></div>
     </section>
 
-    <section class="card">
-      <span class="eyebrow">CHOOSE PROTECTION</span>
-
-      <label class="option selected">
-        <input type="radio" name="profile" value="standard" checked>
-        <span>
-          <strong>Standard</strong>
-          <small>Blocks ads + trackers. Recommended.</small>
-        </span>
-        <span class="pill">Recommended</span>
-      </label>
-
-      <label class="option">
-        <input type="radio" name="profile" value="family">
-        <span>
-          <strong>Family</strong>
-          <small>Ads + trackers + adult domains + Safe Search where supported.</small>
-        </span>
-      </label>
-
-      <label class="option">
-        <input type="radio" name="profile" value="custom">
-        <span>
-          <strong>Custom DoH</strong>
-          <small>Use your own DNS-over-HTTPS endpoint later.</small>
-        </span>
-      </label>
-
-      <div id="customBox" class="custom hidden">
-        <label for="customUrl">DNS-over-HTTPS URL</label>
-        <input id="customUrl" type="url" placeholder="https://dns.example.com/dns-query" inputmode="url" autocomplete="off">
-        <p class="tiny">JezBlock only stores this value in this browser.</p>
-      </div>
-
-      <button id="installBtn" class="primary full">Download Standard profile</button>
-      <p class="tiny center">iOS will always ask you to approve profile installation.</p>
-    </section>
-
     <section class="card steps">
-      <span class="eyebrow">INSTALL ON IPHONE</span>
+      <span class="eyebrow">INSTALL</span>
       <ol>
-        <li><b>Download</b> the JezBlock profile above using Safari.</li>
-        <li>If Safari saves the file, tap the <b>.mobileconfig</b> once in Downloads. Then open <b>Settings</b> and tap <b>Profile Downloaded</b>.</li>
-        <li>Tap <b>Install</b> and confirm.</li>
-        <li>Come back here and tap <b>Test current protection</b>.</li>
+        <li>Tap <b>Protect this iPhone</b>.</li>
+        <li>Open the downloaded <b>.mobileconfig</b> file in Safari Downloads.</li>
+        <li>Open <b>Settings → Profile Downloaded → Install</b>.</li>
+        <li>Come back and tap <b>Check protection</b>.</li>
       </ol>
-      <p class="tiny">If “Profile Downloaded” is not shown, look under Settings → General → VPN &amp; Device Management.</p>
+      <p class="tiny">If “Profile Downloaded” is missing: Settings → General → VPN &amp; Device Management.</p>
     </section>
 
-    <section class="card">
-      <span class="eyebrow">WHAT V0.1 DOES</span>
-      <div class="grid">
-        <div class="feature"><b>✓</b><span>Wi‑Fi</span></div>
-        <div class="feature"><b>✓</b><span>Cellular</span></div>
-        <div class="feature"><b>✓</b><span>Safari</span></div>
-        <div class="feature"><b>✓</b><span>Many apps</span></div>
-        <div class="feature"><b>✓</b><span>Encrypted DNS</span></div>
-        <div class="feature"><b>—</b><span>No VPN tunnel</span></div>
-      </div>
-      <p class="muted compact">
-        DNS filtering cannot remove every ad. Ads served from the same domain as the content—such as many video ads—may not be blockable with DNS alone.
-      </p>
-    </section>
+    <details class="card advanced">
+      <summary>Having trouble?</summary>
+      <p class="muted compact">Maximum protection is intentionally aggressive. If a site or app stops working, install Compatibility mode instead.</p>
+      <button id="compatBtn" class="secondary full">Install Compatibility mode</button>
+      <button id="offProfileBtn" class="secondary full">Install unfiltered DNS</button>
+      <p class="tiny">To fully remove JeBlock: Settings → General → VPN &amp; Device Management → JeBlock → Remove Profile.</p>
+    </details>
 
-    <section class="card">
-      <span class="eyebrow">REMOVE / DISABLE</span>
-      <p class="muted compact">
-        Settings → General → VPN &amp; Device Management → JezBlock → Remove Profile.
-      </p>
-      <a id="offProfileBtn" class="secondary full linkbtn" href="jezblock-off.mobileconfig">Download unfiltered DNS profile</a>
+    <section class="card note">
+      <span class="eyebrow">BETA NOTE</span>
+      <p class="muted compact">JeBlock V0.2 uses an aggressive public DNS filter while we build our own backend. DNS blocking can stop many ads, trackers and pop-up sources, but it cannot guarantee 99% on every site or block ads delivered from the same domain as the content.</p>
     </section>
 
     <footer>
-      <p>JezBlock V0.1.1 · No account · No analytics in this PWA</p>
+      <p>JeBlock V0.2 · No account · No graphs · No analytics in this PWA</p>
     </footer>
   </main>
 

@@ -1,16 +1,9 @@
-const CACHE = 'jezblock-v011';
+const CACHE = 'jeblock-v02';
 const PROFILE_MIME = 'application/x-apple-aspen-config';
 const ASSETS = [
-  './',
-  './index.html',
-  './styles.css',
-  './app.js',
-  './manifest.webmanifest',
-  './icon-192.png',
-  './icon-512.png',
-  './jezblock-standard.mobileconfig',
-  './jezblock-family.mobileconfig',
-  './jezblock-off.mobileconfig'
+  './', './index.html', './styles.css', './app.js', './manifest.webmanifest',
+  './icon-192.png', './icon-512.png',
+  './jeblock-maximum.mobileconfig', './jeblock-compatibility.mobileconfig', './jeblock-off.mobileconfig'
 ];
 
 self.addEventListener('install', event => {
@@ -19,9 +12,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
-  );
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))));
   self.clients.claim();
 });
 
@@ -36,23 +27,13 @@ self.addEventListener('fetch', event => {
       const source = cached || await fetch(event.request);
       const body = await source.arrayBuffer();
       const headers = new Headers(source.headers);
-      const filename = url.pathname.split('/').pop() || 'jezblock.mobileconfig';
-
-      // GitHub Pages may identify these as plain text. Force Apple's profile MIME
-      // for any direct/fallback navigation handled by the service worker.
+      const filename = url.pathname.split('/').pop() || 'jeblock.mobileconfig';
       headers.set('Content-Type', PROFILE_MIME);
       headers.set('Content-Disposition', `attachment; filename="${filename}"`);
-
-      return new Response(body, {
-        status: source.status,
-        statusText: source.statusText,
-        headers
-      });
+      return new Response(body, { status: source.status, statusText: source.statusText, headers });
     })());
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request))
-  );
+  event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request)));
 });
