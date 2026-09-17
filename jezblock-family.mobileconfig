@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>HTTPS</string>
+                <key>ServerURL</key>
+                <string>https://family.adguard-dns.com/dns-query</string>
+                <key>AllowFailover</key>
+                <false/>
+            </dict>
+            <key>PayloadDisplayName</key>
+            <string>JezBlock Family</string>
+            <key>PayloadIdentifier</key>
+            <string>com.jezblock.dns.family</string>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadUUID</key>
+            <string>366B7ADE-B66E-4153-B17D-5863579546A8</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+    <key>PayloadDescription</key>
+    <string>Encrypted DNS profile for JezBlock. Routes DNS through a filtered DNS-over-HTTPS resolver.</string>
+    <key>PayloadDisplayName</key>
+    <string>JezBlock Family</string>
+    <key>PayloadIdentifier</key>
+    <string>com.jezblock.profile.family</string>
+    <key>PayloadOrganization</key>
+    <string>JezBlock</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>44FAF87F-E0BC-4E9B-924F-54E73A73FD9D</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>
