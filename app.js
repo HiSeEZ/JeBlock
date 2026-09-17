@@ -1,6 +1,7 @@
 const PROFILE_MIME = 'application/x-apple-aspen-config';
 const PROFILE_FILES = {
   maximum: 'jeblock-maximum.mobileconfig',
+  oisd: 'jeblock-oisd.mobileconfig',
   compatibility: 'jeblock-compatibility.mobileconfig',
   proplus: 'jeblock-proplus.mobileconfig',
   unfiltered: 'jeblock-off.mobileconfig'
@@ -8,6 +9,7 @@ const PROFILE_FILES = {
 
 const $ = (s) => document.querySelector(s);
 const installBtn = $('#installBtn');
+const oisdBtn = $('#oisdBtn');
 const compatBtn = $('#compatBtn');
 const proPlusBtn = $('#proPlusBtn');
 const offProfileBtn = $('#offProfileBtn');
@@ -57,7 +59,8 @@ async function prepareButton(button, profile, readyText) {
   }
 }
 
-installBtn.addEventListener('click', () => prepareButton(installBtn, 'maximum', 'OISD profile ready'));
+installBtn.addEventListener('click', () => prepareButton(installBtn, 'maximum', 'Maximum + Apple profile ready'));
+oisdBtn.addEventListener('click', () => prepareButton(oisdBtn, 'oisd', 'OISD-only profile ready'));
 compatBtn.addEventListener('click', () => prepareButton(compatBtn, 'compatibility', 'AdGuard profile ready'));
 proPlusBtn.addEventListener('click', () => prepareButton(proPlusBtn, 'proplus', 'Pro++ profile ready'));
 offProfileBtn.addEventListener('click', () => prepareButton(offProfileBtn, 'unfiltered', 'Unfiltered profile ready'));
@@ -131,7 +134,7 @@ async function testProtection() {
       testResult.textContent = 'Protection is active.';
       statusDot.className = 'status-dot good';
       statusTitle.textContent = 'Protected';
-      statusText.textContent = 'JeBlock is blocking the tested advertising and tracking hosts.';
+      statusText.textContent = 'JeBlock is blocking the tested advertising and tracking hosts. Maximum also includes Apple-native filtering.';
     } else if (blocked >= 1) {
       testResult.className = 'result warn';
       testResult.textContent = `Protection is partially detected (${blocked}/${total} test hosts blocked).`;

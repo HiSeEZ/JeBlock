@@ -1,39 +1,41 @@
-# JeBlock V0.2.2 Beta
+# JeBlock V0.2.3 Beta
 
-Benchmark build focused on the DNS layer.
+Experimental iPhone DNS build focused on stronger system-wide ad/tracker blocking while keeping the user experience simple.
 
-## Default profile
+## Default profile — Maximum + Apple
 
-`jeblock-maximum.mobileconfig` uses Control D's public OISD Full DoH endpoint:
-`https://freedns.controld.com/x-oisd`
+`jeblock-maximum.mobileconfig` uses a RethinkDNS encrypted DNS endpoint configured with:
 
-## Test profiles
+- OISD Big
+- Apple-native advertising/tracking blocklist
 
-- `jeblock-compatibility.mobileconfig` — AdGuard Public DNS (known-good fallback from V0.1 testing).
-- `jeblock-proplus.mobileconfig` — HaGeZi Pro++ through Control D, for comparison only.
-- `jeblock-off.mobileconfig` — unfiltered Control D DNS.
+The generated RethinkDNS blockstamp is `1:IAAgEA==`.
 
-Use only one DNS settings profile at a time. Remove the current JeBlock test profile before switching.
+This is a beta comparison build. It does **not** promise that all Apple ads or all in-app ads will disappear, and aggressive Apple-domain blocking can potentially break individual Apple features.
+
+## Test / fallback profiles
+
+- `jeblock-oisd.mobileconfig` — previous Control D OISD-only profile that scored about 91–96% in our iPhone benchmark testing.
+- `jeblock-compatibility.mobileconfig` — AdGuard Public DNS fallback.
+- `jeblock-proplus.mobileconfig` — HaGeZi Pro++ comparison profile.
+- `jeblock-off.mobileconfig` — unfiltered DNS.
+
+Use only one DNS settings profile at a time.
 
 ## Test sequence
 
-1. Remove the old JeBlock/JezBlock DNS profile.
-2. Open JeBlock in Safari and install Maximum.
-3. Toggle Airplane Mode on/off once after installation.
-4. Run JeBlock's built-in check.
-5. Run the same external blocker benchmark used before and record the result.
-6. If Maximum is weak, repeat with AdGuard and then Pro++ so we can compare on the same iPhone/network.
+1. Remove the old JeBlock DNS profile.
+2. Install Maximum + Apple.
+3. Toggle Airplane Mode on/off once.
+4. Run JeBlock's built-in protection check.
+5. Run the same d3ward blocker benchmark.
+6. Check Apple apps where ads were visible before (for example App Store / News / Stocks where available).
+7. If anything breaks or the benchmark drops, remove Maximum + Apple and install the OISD-only fallback.
 
-## Important limitation
+## Why this build exists
 
-This PWA only configures the DNS layer. DNS cannot remove every popup/cosmetic element or same-domain ad. A Safari content-blocker extension is a separate native extension layer and cannot be installed by this PWA.
+OISD-only produced the strongest DNS benchmark result so far. V0.2.3 keeps an OISD layer and adds a dedicated Apple-native list so we can measure whether it improves real iPhone in-app blocking without causing unacceptable breakage.
 
 ## Privacy
 
-This PWA has no account and no analytics. The public DNS provider processes DNS queries according to its own privacy policy. These public profiles are for beta testing; a production JeBlock service should use JeBlock-controlled endpoints.
-
-
-## V0.2.2
-- Reworked the on-device protection check for Safari reliability.
-- Added a hard timeout so the Check protection button can never remain stuck.
-- Kept OISD Full as the Maximum profile after the 96% d3ward result.
+This PWA has no account and no analytics. Beta profiles use third-party public encrypted DNS resolvers. A production JeBlock service should move to JeBlock-controlled endpoints with minimal retention.

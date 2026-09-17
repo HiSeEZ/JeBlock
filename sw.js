@@ -1,10 +1,11 @@
-const CACHE = 'jeblock-v022';
+const CACHE = 'jeblock-v023';
 const PROFILE_MIME = 'application/x-apple-aspen-config';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './manifest.webmanifest',
   './icon-192.png', './icon-512.png',
-  './jeblock-maximum.mobileconfig', './jeblock-compatibility.mobileconfig',
-  './jeblock-proplus.mobileconfig', './jeblock-off.mobileconfig'
+  './jeblock-maximum.mobileconfig', './jeblock-oisd.mobileconfig',
+  './jeblock-compatibility.mobileconfig', './jeblock-proplus.mobileconfig',
+  './jeblock-off.mobileconfig'
 ];
 self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS))); self.skipWaiting(); });
 self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))); self.clients.claim(); });

@@ -8,23 +8,23 @@
       <key>DNSSettings</key>
       <dict>
         <key>DNSProtocol</key><string>HTTPS</string>
-        <key>ServerURL</key><string>https://sky.rethinkdns.com/1:IAAgEA==</string>
+        <key>ServerURL</key><string>https://freedns.controld.com/x-oisd</string>
         <key>AllowFailover</key><false/>
       </dict>
-      <key>PayloadDisplayName</key><string>JeBlock Maximum + Apple</string>
-      <key>PayloadIdentifier</key><string>com.jeblock.dns.maximum.apple</string>
+      <key>PayloadDisplayName</key><string>JeBlock OISD Only</string>
+      <key>PayloadIdentifier</key><string>com.jeblock.dns.oisd</string>
       <key>PayloadType</key><string>com.apple.dnsSettings.managed</string>
-      <key>PayloadUUID</key><string>CEE91F2E-900E-412D-B513-49B0FC52F829</string>
+      <key>PayloadUUID</key><string>5A98D9D0-65ED-4F43-BBAE-5F19E92C81D0</string>
       <key>PayloadVersion</key><integer>1</integer>
     </dict>
   </array>
-  <key>PayloadDescription</key><string>JeBlock beta profile combining OISD Big with Apple-native advertising and tracking domain blocking over encrypted DNS.</string>
-  <key>PayloadDisplayName</key><string>JeBlock Maximum + Apple</string>
-  <key>PayloadIdentifier</key><string>com.jeblock.profile.maximum.apple</string>
+  <key>PayloadDescription</key><string>JeBlock OISD-only beta profile using OISD Full over encrypted DNS.</string>
+  <key>PayloadDisplayName</key><string>JeBlock OISD Only</string>
+  <key>PayloadIdentifier</key><string>com.jeblock.profile.oisd</string>
   <key>PayloadOrganization</key><string>JeBlock</string>
   <key>PayloadRemovalDisallowed</key><false/>
   <key>PayloadType</key><string>Configuration</string>
-  <key>PayloadUUID</key><string>005431EC-F621-4C62-A61F-C23E459F88C1</string>
+  <key>PayloadUUID</key><string>A9C122E7-ED91-44A1-98C4-969359236834</string>
   <key>PayloadVersion</key><integer>1</integer>
 </dict>
 </plist>
