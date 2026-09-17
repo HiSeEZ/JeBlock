@@ -1,7 +1,7 @@
-
 const PROFILE_FILES = {
   standard: 'jezblock-standard.mobileconfig',
-  family: 'jezblock-family.mobileconfig'
+  family: 'jezblock-family.mobileconfig',
+  unfiltered: 'jezblock-off.mobileconfig'
 };
 
 const PROFILE_NAMES = {
@@ -10,9 +10,12 @@ const PROFILE_NAMES = {
   custom: 'Custom'
 };
 
+const PROFILE_MIME = 'application/x-apple-aspen-config';
+
 const $ = (s) => document.querySelector(s);
 const radios = [...document.querySelectorAll('input[name="profile"]')];
 const installBtn = $('#installBtn');
+const offProfileBtn = $('#offProfileBtn');
 const customBox = $('#customBox');
 const customUrl = $('#customUrl');
 const testBtn = $('#testBtn');
@@ -83,17 +86,42 @@ function profileXml(serverUrl) {
 </plist>`;
 }
 
-function downloadCustomProfile(url) {
-  const xml = profileXml(url);
-  const blob = new Blob([xml], { type: 'application/x-apple-aspen-config' });
+function triggerProfileDownload(xml, filename) {
+  // GitHub Pages may serve .mobileconfig as plain text. Rebuilding the file
+  // in-browser gives Safari the Apple configuration-profile MIME type.
+  const blob = new Blob([xml], { type: PROFILE_MIME });
   const href = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = href;
-  a.download = 'jezblock-custom.mobileconfig';
+  a.download = filename;
+  a.type = PROFILE_MIME;
   document.body.appendChild(a);
   a.click();
   a.remove();
-  setTimeout(() => URL.revokeObjectURL(href), 1500);
+
+  // Keep the object URL alive long enough for iOS to hand the file off.
+  setTimeout(() => URL.revokeObjectURL(href), 60000);
+}
+
+async function downloadBundledProfile(profile) {
+  const filename = PROFILE_FILES[profile];
+  if (!filename) throw new Error('Unknown JezBlock profile.');
+
+  const response = await fetch(`./${filename}`, { cache: 'no-store' });
+  if (!response.ok) {
+    throw new Error(`Could not load ${filename} (${response.status}).`);
+  }
+
+  const xml = await response.text();
+  if (!xml.includes('<plist') || !xml.includes('PayloadType')) {
+    throw new Error('The profile file did not contain a valid configuration payload.');
+  }
+
+  triggerProfileDownload(xml, filename);
+}
+
+function downloadCustomProfile(url) {
+  triggerProfileDownload(profileXml(url), 'jezblock-custom.mobileconfig');
 }
 
 function updateChoiceUI() {
@@ -109,8 +137,9 @@ function updateChoiceUI() {
 
 radios.forEach(r => r.addEventListener('change', updateChoiceUI));
 
-installBtn.addEventListener('click', () => {
+installBtn.addEventListener('click', async () => {
   const p = selectedProfile();
+  const oldText = installBtn.textContent;
 
   if (p === 'custom') {
     const url = customUrl.value.trim();
@@ -124,8 +153,40 @@ installBtn.addEventListener('click', () => {
     return;
   }
 
-  location.href = PROFILE_FILES[p];
+  installBtn.disabled = true;
+  installBtn.textContent = 'Preparing profile…';
+
+  try {
+    await downloadBundledProfile(p);
+    statusTitle.textContent = 'Profile prepared';
+    statusText.textContent = 'If iOS does not show “Profile Downloaded”, open the .mobileconfig from Safari Downloads, then check Settings.';
+  } catch (error) {
+    console.error(error);
+    alert('JezBlock could not prepare the profile. Please reload the page in Safari and try again.');
+  } finally {
+    installBtn.disabled = false;
+    installBtn.textContent = oldText;
+  }
 });
+
+if (offProfileBtn) {
+  offProfileBtn.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const oldText = offProfileBtn.textContent;
+    offProfileBtn.setAttribute('aria-disabled', 'true');
+    offProfileBtn.textContent = 'Preparing profile…';
+
+    try {
+      await downloadBundledProfile('unfiltered');
+    } catch (error) {
+      console.error(error);
+      alert('JezBlock could not prepare the unfiltered profile. Please reload the page in Safari and try again.');
+    } finally {
+      offProfileBtn.removeAttribute('aria-disabled');
+      offProfileBtn.textContent = oldText;
+    }
+  });
+}
 
 async function testProtection() {
   testBtn.disabled = true;

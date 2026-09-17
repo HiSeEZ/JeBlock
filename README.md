@@ -1,4 +1,4 @@
-# JezBlock V0.1
+# JezBlock V0.1.1
 
 A no-Mac, no-Xcode proof-of-concept for system-wide iPhone ad/tracker blocking using an installable PWA as the control panel and an iOS encrypted DNS configuration profile as the actual filtering layer.
 
@@ -35,8 +35,8 @@ A no-Mac, no-Xcode proof-of-concept for system-wide iPhone ad/tracker blocking u
 From the JezBlock PWA:
 
 1. Choose Standard or Family.
-2. Tap "Download ... profile".
-3. iPhone Settings -> Profile Downloaded -> Install.
+2. Tap "Download ... profile" in Safari. JezBlock rebuilds the profile locally with Apple's configuration-profile MIME type so GitHub Pages does not display the XML as text.
+3. If Safari saves the file to Downloads, tap the `.mobileconfig` once. Then go to iPhone Settings -> Profile Downloaded -> Install.
 4. If that banner is not visible: Settings -> General -> VPN & Device Management.
 5. Return to JezBlock and tap "Test current protection".
 
